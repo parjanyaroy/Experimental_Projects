@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.devMode" value="true" />
+   <package name="helloworld" extends="struts-default">
+   
+   	<interceptors>
+         <interceptor name="myinterceptor"
+            class="com.tutorialspoint.interceptors.MyInterceptor" />
+            <interceptor name="secondinterceptor"
+            class="com.tutorialspoint.interceptors.SecondInterceptor" />
+      </interceptors>
+         
+      <action name="hello" 
+            class="com.tutorialspoint.struts2.HelloWorldAction" 
+            method="execute">
+            <result name="success">/HelloWorld.jsp</result>
+            <result name="error" type="dispatcher">
+            <param name="location">
+			      /AccessDenied.jsp
+			   </param >
+             </result>
+             <interceptor-ref name="params"/>
+        	 <interceptor-ref name="timer" />
+        	  <interceptor-ref name="myinterceptor"/>
+        	  <interceptor-ref name="secondinterceptor"/>
+      </action>
+      
+       <action name="goodbye" 
+            class="com.tutorialspoint.struts2.ByeWorldAction" 
+            method="execute">
+            <result name="success">/ByeWorld.jsp</result>
+           <!--  <interceptor-ref name="basicStack"/> -->
+      </action>
+      
+      
+		<!--    <interceptor-stack name="basicStack">
+		    <interceptor-ref name="myinterceptor"/>
+		   <interceptor-ref name="secondinterceptor"/>
+			</interceptor-stack> -->
+      
+   </package>
+</struts>
